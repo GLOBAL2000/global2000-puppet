@@ -1,0 +1,25 @@
+##Puppet-Managed
+
+option rfc3442-classless-static-routes code 121 = array of unsigned integer 8;
+
+send host-name "<hostname>";
+request subnet-mask, broadcast-address, time-offset, routers,
+	domain-name, domain-name-servers, domain-search, host-name,
+	netbios-name-servers, netbios-scope, interface-mtu,
+	rfc3442-classless-static-routes, ntp-servers;
+
+timeout 20;
+
+#zum Ignorieren von DHCP-Servern
+#reject 192.168.0.0/16;
+
+#Fallback, falls DHCP-Server nix sagt
+lease {
+  interface "<%= interfaces %>";
+  fixed-address <%= ipaddress %>;
+  option subnet-mask <%= netmask %>;
+  option routers <%= gateway %>;
+  renew 6 2037/01/01 00:00:00;
+  rebind 6 2037/01/01 03:00:00;
+  expire 6 2037/01/01 05:00:00;
+}

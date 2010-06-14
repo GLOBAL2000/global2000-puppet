@@ -1,0 +1,53 @@
+#
+d-i preseed/early_command		string httpd
+
+d-i     debian-installer/country        string AT
+d-i     debian-installer/locale         string en_US.UTF-8
+d-i 	console-keymaps-at/keymap	string de-latin1-nodeadkeys
+
+d-i	mirror/country			string manual
+d-i   	mirror/http/proxy		string
+d-i     mirror/http/hostname            string debian.inode.at
+d-i	mirror/http/directory		string /debian
+
+d-i time/zone string Europe/Vienna
+d-i clock-setup/ntp boolean false
+
+
+#d-i partman-auto/method string regular
+d-i partman-auto/choose_recipe select manual
+partman-basicfilesystems partman-basicfilesystems/no_swap boolean false
+
+# This makes partman automatically partition without confirmation, provided
+# that you told it what to do using one of the methods above.
+#d-i partman-partitioning/confirm_write_new_label boolean true
+#d-i partman/choose_partition select finish
+#d-i partman/confirm boolean true
+
+d-i passwd/root-password-crypted password $1$ItbTtw9o$tGK5Srf47El3x1PnA/QRz/
+
+d-i passwd/make-user boolean false
+tasksel		tasksel/first		multiselect
+
+############
+### PACKAGES
+############
+# Individual additional packages to install
+d-i pkgsel/include string openssh-server less mc zsh puppet
+# Whether to upgrade packages after debootstrap.
+# Allowed values: none, safe-upgrade, full-upgrade
+d-i pkgsel/upgrade select safe-upgrade
+
+
+d-i	grub-installer/only_debian	boolean true
+popularity-contest popularity-contest/participate boolean false
+d-i	finish-install/reboot_in_progress	note
+
+# if you need to be doing scripting for local preseeding,
+# just add a preseed.sh and uncomment the following line:
+#d-i    preseed/run         string preseed.sh
+d-i preseed/late_command string in-target puppetd --test --server puppet.g2 --tags debootstrap; \
+    in-target aptitude update; \
+    in-target puppetd --test --server puppet.g2
+
+slapd   slapd/no_configuration  boolean true

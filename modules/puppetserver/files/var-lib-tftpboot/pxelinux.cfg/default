@@ -1,0 +1,18 @@
+default menu.c32
+prompt 0
+timeout 10
+
+label local disk
+      menu local boot
+      menu default
+      localboot 0x80
+
+label install karmic
+	menu label Install karmic
+	kernel karmic-installer/i386/linux
+	append nousb vga=normal initrd=karmic-installer/i386/initrd.gz auto=true priority=critical url=http://puppet/preseed-karmic.txt -- quiet
+
+label install lenny
+	menu label Install Lenny
+	kernel squeeze-installer/amd64/linux
+	append vga=normal initrd=squeeze-installer/amd64/initrd.gz auto=true url=http://puppet/preseed-lenny.txt suite=lenny -- quiet

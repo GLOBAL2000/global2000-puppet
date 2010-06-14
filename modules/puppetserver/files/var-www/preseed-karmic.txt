@@ -1,0 +1,55 @@
+#https://help.ubuntu.com/9.04/installation-guide/i386/preseed-contents.html
+
+d-i preseed/early_command	string httpd
+
+d-i mirror/http/proxy		string http://aptcache:3142/
+d-i mirror/country  		string  AT
+apt-setup-udeb  apt-setup/security_host string  ubuntu.inode.at
+d-i mirror/http/hostname    string ubuntu.inode.at
+
+d-i console-setup/layoutcode	string de
+
+
+d-i netcfg/network-manager  	boolean false
+
+#disk partitioniern
+d-i partman-auto/method		string regular
+d-i partman-auto/choose_recipe	select atomic
+d-i partman/default_filesystem	string ext4
+
+partman-basicfilesystems partman-basicfilesystems/no_swap boolean false
+d-i partman-partitioning/confirm_write_new_label boolean true
+d-i partman/choose_partition select finish
+d-i partman/confirm boolean true
+
+
+
+#AT Sachen
+d-i time/zone			string Europe/Vienna
+d-i debian-installer/language	string de
+d-i debian-installer/locale     string de_AT.UTF-8
+d-i clock-setup/utc		boolean true
+d-i clock-setup/ntp-server	string ntp.g2
+
+
+d-i passwd/root-login		boolean true
+d-i passwd/root-password-crypted password !kerberos!!
+
+d-i passwd/make-user		boolean false
+
+
+tasksel tasksel/first 		multiselect ubuntu-desktop
+d-i pkgsel/include		string openssh-server puppet
+d-i pkgsel/upgrade 		select safe-upgrade
+d-i pkgsel/update-policy	select unattended-upgrades
+d-i	grub-installer/only_debian	boolean true
+popularity-contest popularity-contest/participate boolean false
+d-i	finish-install/reboot_in_progress	note
+
+
+d-i preseed/late_command string in-target puppetd --no-daemonize --onetime --server puppet.g2 --tags debootstrap; \
+    in-target aptitude update; \
+    in-target puppetd --no-daemonize --onetime --environment=debootstrap
+
+
+d-i debian-installer/exit/poweroff boolean true

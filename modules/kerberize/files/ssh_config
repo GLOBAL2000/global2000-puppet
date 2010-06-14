@@ -1,0 +1,6 @@
+Host *
+   SendEnv LANG LC_*
+   StrictHostKeyChecking no
+   UserKnownHostsFile=/dev/null
+   GSSAPIAuthentication yes
+   GSSAPIDelegateCredentials yes

@@ -1,0 +1,29 @@
+krb5-config   	krb5-config/read_conf   	boolean false
+krb5-config   	krb5-config/kerberos_servers   	string kerberos1
+krb5-config   	krb5-config/default_realm   	string GLOBAL2000.AT
+krb5-config   	krb5-config/admin_server   	string kerberos1
+krb5-config   	krb5-config/dns_for_default   	boolean false
+krb5-admin-server				krb5-admin-server/kadmind	boolean	true
+krb5-admin-server				krb5-admin-server/newrealm	note	
+krb5-kdc					krb5-kdc/debconf		boolean	true
+krb5-kdc					krb5-kdc/krb4-mode		select none
+krb5-kdc					krb5-kdc/run-krb524		boolean	false
+krb5-kdc					krb5-kdc/purge_data_too		boolean	false
+slapd   	slapd/no_configuration  	boolean true
+mysql-server-5.0				mysql-server/root_password	password
+mysql-server-5.0				mysql-server/root_password_again	password
+tftpd-hpa					tftpd-hpa/use_inetd		boolean false
+# NFS, do not overwrite /etc/exports 
+ucf    ucf/changeprompt	select keep_current
+openafs-fileserver	openafs-fileserver/alpha-broken	note	
+openafs-client		openafs-client/run-client	boolean false
+openafs-client		openafs-client/dynroot			boolean false
+openafs-fileserver	openafs-fileserver/thiscell	string global2000.at
+openafs-client		openafs-client/crypt		boolean true
+openafs-client		openafs-client/thiscell		string global2000.at
+openafs-fileserver	openafs-fileserver/bosconfig_moved     boolean true
+openafs-client		openafs-client/cachesize			string 50000
+openafs-client		openafs-client/fakestat				boolean true
+openafs-client		openafs-client/cell-info			string afs.g2
+openafs-client		openafs-client/afsdb				boolean true
+

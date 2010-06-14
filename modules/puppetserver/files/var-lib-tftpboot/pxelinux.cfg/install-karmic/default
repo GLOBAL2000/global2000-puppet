@@ -1,0 +1,9 @@
+default menu.c32
+prompt 0
+timeout 20
+
+label install karmic
+	menu default
+	menu label Install karmic
+	kernel karmic-installer/i386/linux
+	append nousb vga=normal initrd=karmic-installer/i386/initrd.gz auto=true priority=critical url=http://puppet/preseed-karmic.txt -- quiet

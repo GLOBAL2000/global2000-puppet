@@ -1,0 +1,50 @@
+include		/etc/ldap/schema/core.schema
+include		/etc/ldap/schema/cosine.schema
+include		/etc/ldap/schema/inetorgperson.schema
+include		/etc/ldap/schema/nis.schema
+
+pidfile         /var/run/slapd/slapd.pid
+argsfile        /var/run/slapd/slapd.args
+
+sasl-secprops noanonymous,noplain,noactive
+
+modulepath      /usr/lib/ldap
+moduleload      back_bdb
+<% if hostname == "ldap1" %>
+moduleload      syncprov
+<% end %>
+backend         bdb
+database	bdb
+suffix		"dc=global2000,dc=at"
+
+rootdn          "uid=mrldapadminhimself,cn=gssapi,cn=auth"
+
+authz-regexp
+          uid=([^,]*),cn=gssapi,cn=auth
+          uid=$1,ou=people,dc=global2000,dc=at
+
+dbconfig set_cachesize 0 2097152 0
+directory	/var/lib/ldap
+
+index objectClass,uid,uidNumber,gidNumber,memberUid,entryCSN,entryUUID  eq
+
+<% if hostname == "ldap1" %>
+overlay syncprov
+syncprov-checkpoint 100 10
+syncprov-sessionlog 100
+<% else %>
+syncrepl
+	rid=42
+	provider=ldap://ldap1
+	type=refreshOnly
+	interval=00:01:00:00
+	searchbase="dc=global2000,dc=at"
+<% end %>
+
+access to *
+       by dn.base="uid=mrldapadminhimself,ou=people,dc=global2000,dc=at" write
+       by set="[cn=ldapadmins,ou=groups,dc=global2000,dc=at]/memberUid & user/uid" write
+       by peername.ip=192.168.42.0%255.255.255.0 read
+       by peername.ip=192.168.43.0%255.255.255.0 read
+       by peername.ip=127.0.0.0%255.0.0.0 read
+       by * none

@@ -1,0 +1,11 @@
+auto lo
+iface lo inet loopback
+
+auto br0
+iface br0 inet static
+        address <%= ip %>
+        netmask <%= netmask %>
+        network <%= broadcast %>
+        broadcast <%= network %>
+        gateway <%= gateway %>
+        bridge-ports all

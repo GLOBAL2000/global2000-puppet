@@ -1,0 +1,19 @@
+Port 22
+Protocol 2
+
+# Nix erlauben, außer GSSAPI
+RSAAuthentication no
+PubkeyAuthentication no
+ChallengeResponseAuthentication no
+PasswordAuthentication no
+UsePAM no
+
+X11Forwarding yes
+PrintMotd no
+AcceptEnv LANG LC_*
+Subsystem sftp /usr/lib/openssh/sftp-server
+
+# GSSAPI options
+GSSAPIAuthentication yes
+GSSAPIKeyExchange yes
+GSSAPICleanupCredentials yes

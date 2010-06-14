@@ -1,0 +1,3 @@
+MASTER_MAP_NAME="/etc/auto.master"
+TIMEOUT=300
+BROWSE_MODE="yes"
