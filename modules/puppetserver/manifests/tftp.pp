@@ -53,6 +53,23 @@ class tftp {
       require => Exec["wget karmic netboot tarball"],
   }
 
+  # Lucid
+  exec {
+    "wget lucid netboot tarball":
+      cwd => "/var/tmp",
+      command => "wget -O /var/tmp/netboot-lucid.tar.gz -c http://ubuntu.inode.at/ubuntu/dists/lucid/main/installer-i386/current/images/netboot/netboot.tar.gz",
+      creates => "/var/tmp/netboot-lucid.tar.gz",
+      require => Package["tftpd-hpa"],
+  }
+
+  exec {
+    "unpack lucid netboot tarball":
+      cwd => "/var/lib/tftpboot",
+      command => "tar --transform 's/ubuntu-installer/lucid-installer/' -xzf /var/tmp/netboot-lucid.tar.gz ./ubuntu-installer/",
+      creates => "/var/lib/tftpboot/lucid-installer",
+      require => Exec["wget lucid netboot tarball"],
+  }
+
   # Squeeze
   exec {
     "wget squeeze netboot tarball":

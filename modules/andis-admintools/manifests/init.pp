@@ -8,6 +8,7 @@ import "testuser"
     "emacs":
       name => $operatingsystemrelease ? {
         "9.10" => "emacs23",
+        "10.04" => "emacs23",
         "squeeze/sid" => "emacs23-nox",
         /(5.0.*)/ => "emacs22-nox",
         default => "emacs-nox",

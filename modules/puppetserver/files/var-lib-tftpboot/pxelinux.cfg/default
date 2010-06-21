@@ -8,9 +8,14 @@ label local disk
       localboot 0x80
 
 label install karmic
-	menu label Install karmic
+	menu label Install Karmic
 	kernel karmic-installer/i386/linux
 	append nousb vga=normal initrd=karmic-installer/i386/initrd.gz auto=true priority=critical url=http://puppet/preseed-karmic.txt -- quiet
+
+label install Lucid
+	menu label Install Lucid
+	kernel lucid-installer/i386/linux
+	append nousb vga=normal initrd=lucid-installer/i386/initrd.gz auto=true priority=critical url=http://puppet/preseed-lucid.txt -- quiet
 
 label install lenny
 	menu label Install Lenny
