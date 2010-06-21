@@ -1,7 +1,5 @@
 class desktop {
   include apps
-  include files
-  include gnome_panel
   include fonts
   include citrix
   include grafikkarte
@@ -66,53 +64,14 @@ class desktop {
         ensure => "metacity",
     }
   }
-  
-  class files {
+
+  class fonts {
     file {
       "/etc/apt/preferences":
         tag => "debootstrap",
-        source => "puppet:///desktop/etc-apt-preferences",
-    }
-  }
+        content => "Package: ttf-mscorefonts-installer\nPin: version *\nPin-Priority: -1\n"
+    }    
 
-  class gnome_panel {
-    gconf-system {
-      "/apps/panel/default_setup/objects/thunderbird_launcher/launcher_location":
-        ensure => "thunderbird.desktop",
-    }
-
-    gconf-system {
-      "/apps/panel/default_setup/objects/thunderbird_launcher/object_type":
-        ensure => "launcher-object",
-    }
-    
-    gconf-system {
-      "/apps/panel/default_setup/objects/thunderbird_launcher/toplevel_id":
-        ensure => "top_panel",
-    }
-
-    gconf-system {
-      "/apps/panel/default_setup/objects/thunderbird_launcher/position":
-        type => "integer",
-        ensure => 2,
-    }
-
-    gconf-system {
-      "/apps/panel/default_setup/general/object_id_list":
-        type => 'list --list-type=string',
-        ensure => '[thunderbird_launcher,browser_launcher,menu_bar]',
-    }
-
-    gconf-system {
-      "/apps/panel/default_setup/general/applet_id_list":
-        type => 'list --list-type=string',
-        ensure => '[clock,notification_area,show_desktop_button,window_list,workspace_switcher,trashapplet,fast_user_switch]',
-    }
-
-
-  }
-
-  class fonts {
     get_by_rsync { "fonts/fonts-global2000/":
       destination => "/usr/local/share/fonts/global2000/",
     }

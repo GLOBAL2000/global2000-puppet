@@ -36,11 +36,6 @@ class global2000 {
       onlyif => "grep --quiet 'search --no-floppy' /boot/grub/grub.cfg",
   }
       
-  file { "/etc/gdm/custom.conf":
-    tag => debootstrap,
-    source => "puppet:///global2000/gdm.conf-custom",
-  }
-
   file { "/etc/default/console-setup":
     tag => debootstrap,
     source => "puppet:///global2000/etc-default-console-setup",
@@ -53,16 +48,14 @@ class global2000 {
 
 
   file {
-    "/etc/firefox-3.5/profile":
+    "firefox profile":
+      path => $operatingsystemrelease ? {
+        "9.10" => "/etc/firefox-3.5/profile",
+        "10.04" => "/etc/firefox/profile",
+      },
       source => "puppet:///global2000/firefox35-profile",
       recurse => true,
       purge => true,
-  }
-
-  file {
-    "/usr/share/gdm/autostart/LoginWindow/gastuser.desktop":
-      tag => "systemstart",
-      source => "puppet:///global2000/gastuser.desktop",
   }
 
   file {
@@ -109,8 +102,14 @@ class global2000 {
   }
 
   file {
+    "/usr/local/share/applications":
+      ensure => directory,
+  }
+  
+  file {
     "/usr/local/share/applications/gleblication.desktop":
       source => "puppet:///global2000/gleblication.desktop",
+      require => File["/usr/local/share/applications"],
   }
 
   file {
