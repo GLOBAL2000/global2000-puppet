@@ -32,24 +32,18 @@ class clientauth {
   }
 
   class pam {
-    case $operatingsystemrelease {
-      /(5.0.*)/: {
-        file {
-          "/etc/pam.d/common-account":
-            source => "puppet:///clientauth/etc-pam.d-common-account";
-
-          "/etc/pam.d/common-auth":
-            source => "puppet:///clientauth/etc-pam.d-common-auth";
-
-          "/etc/pam.d/common-password":
-            source => "puppet:///clientauth/etc-pam.d-common-password";
-
-          "/etc/pam.d/common-session":
-            source => "puppet:///clientauth/etc-pam.d-common-session";
-        }
-      }
+    file {
+      "/etc/pam.d/common-account":
+        source => "puppet:///clientauth/etc-pam.d-common-account";
+      
+      "/etc/pam.d/common-auth":
+        source => "puppet:///clientauth/etc-pam.d-common-auth";
+      
+      "/etc/pam.d/common-password":
+        source => "puppet:///clientauth/etc-pam.d-common-password";
+      
+      "/etc/pam.d/common-session":
+        source => "puppet:///clientauth/etc-pam.d-common-session";
     }
-
   }
-
 }
