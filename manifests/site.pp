@@ -55,7 +55,7 @@ node /seewinkel.*/ inherits g2zone {
   include global2000
   include corporate_identity
   include desktop
-  include autofs::seewinkel
+  include autofs::clients
   include purges
   include kerberize
   include clientauth::pam

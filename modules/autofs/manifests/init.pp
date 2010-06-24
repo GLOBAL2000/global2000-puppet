@@ -1,6 +1,6 @@
 class autofs {
 
-  class seewinkel {
+  class clients {
     package {
       "autofs":
         name => $operatingsystem ? {
