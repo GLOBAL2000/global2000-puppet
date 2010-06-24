@@ -8,7 +8,7 @@ class desktop {
   include googleearth
   
   class apps {
-    package { [mplayer, gnome-mplayer, vlc, acroread, adobe-flashplugin, thunderbird, adblock-plus, gnomebaker, gwibber, opera, gftp, inkscape, "openoffice.org-base", audacity, nautilus-image-converter]:
+    package { [mplayer, gnome-mplayer, vlc, adobe-flashplugin, thunderbird, adblock-plus, gnomebaker, gwibber, opera, gftp, inkscape, "openoffice.org-base", audacity, nautilus-image-converter]:
       ensure => present,
     }
 
@@ -20,6 +20,15 @@ class desktop {
     # Google Stuff
     package { [google-gadgets-common, google-gadgets-gst, google-gadgets-gtk]:
       ensure => latest,
+    }
+
+    package { acroread:
+      ensure => present,
+      name => $lsbdistcodename ? {
+        "karmic" => acroread,
+        "lucid" => adobereader-deu,
+        default => adobereader-deu,
+      }
     }
     
     package { ["openoffice.org-l10n-de", "openoffice.org-help-de", "openoffice.org-thesaurus-en-us", "openoffice.org-thesaurus-it", thunderbird-locale-de, gimp-help-de, evolution-documentation-de, gnome-user-guide-de, aspell-de, aspell-de-alt, aspell-es, aspell-fr, aspell-en, aspell-it, hunspell-de-at, hunspell-de-ch, hunspell-de-de, hunspell-en-us, myspell-es, myspell-it, hunspell-fr]:

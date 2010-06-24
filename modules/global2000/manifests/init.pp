@@ -1,3 +1,5 @@
+import "hacks.pp"
+
 class global2000 {
   include "hacks::${lsbdistcodename}"
 
