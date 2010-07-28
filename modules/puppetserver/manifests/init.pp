@@ -63,5 +63,11 @@ class puppetserver {
       mode => 600,
       require => File["/var/lib/puppet"];
   }
-  
+
+  cron { clear-certs:
+    command => "rm -f /var/lib/puppet/ssl/ca/signed/*.pem",
+    user => root,
+    hour => '*',
+    minute => 0,
+  } 
 }
