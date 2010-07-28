@@ -1,4 +1,4 @@
-define gconf-system($type="string", $preference="defaults", $prefix="xml:readwrite:", $location="/etc/gconf/gconf.xml.", $ensure="present") {
+define gconf-system($type="string", $list_type="string", $preference="defaults", $prefix="xml:readwrite:", $location="/etc/gconf/gconf.xml.", $ensure="present") {
   case $ensure {
     absent: {
       exec{
@@ -13,7 +13,7 @@ define gconf-system($type="string", $preference="defaults", $prefix="xml:readwri
       $gconftest = "test \"$(/usr/bin/gconftool-2 --direct --config-source ${prefix}${location}${preference} --get $name)\" = \"$ensure\""
       exec{
         "set $name to $ensure with preference $preference":
-          command => "/usr/bin/gconftool-2 --direct --config-source ${prefix}${location}${preference} --type=$type --set $name \"$ensure\"",
+          command => "/usr/bin/gconftool-2 --direct --config-source ${prefix}${location}${preference} --type=$type --list-type $list_type --set $name \"$ensure\"",
           unless => "/bin/sh -c \"${gconftest}\"",
           logoutput => on_failure,
       }
@@ -24,6 +24,13 @@ define gconf-system($type="string", $preference="defaults", $prefix="xml:readwri
 define get_by_rsync( $destination="/var/tmp/") {
   exec { "rsync_$name":
     command => "rsync -qrL puppet::rsync/$name $destination",
+  }
+}
+
+define maildirmake( $home , $owner="root", $group="root", $mode="700") {
+  exec { "make maildir $name":
+    command => "maildirmake.dovecot $home/maildir/.$name && chown -R $owner:$group $home/maildir/.$name && chmod -R $mode $home/maildir/.$name",
+    creates => "$home/maildir/.$name",
   }
 }
 
