@@ -47,7 +47,7 @@ class afsclient {
     "/etc/openafs/CellServDB":
       mode => 644, owner => root, group => root,
       require => Package["openafs-client"],
-      content => ">$afsrealm\t#GLOBAL2000 - FOE Europe\n${afsserver_ip}\t#${afsserver_hostname}\n",
+      content => template("afsclient/CellServDB.tpl"),
   }
 
   service { "openafs-client":

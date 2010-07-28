@@ -25,24 +25,33 @@ class citrix {
     "/usr/lib/ICAClient":
       ensure => directory,
       recurse => true,
-      source => "puppet:///desktop/citrix/ICAClient"
+      source => "puppet:///desktop/citrix/ICAClient",
+      require => Package["icaclient"],
   }
 
   file {
+    "/usr/local/share/applications":
+      ensure => directory,
+  }
+  
+  file {
     "/usr/local/share/applications/wfcmgr.desktop":
-    ensure => "/usr/lib/ICAClient/desktop/wfcmgr.desktop",
+      ensure => "/usr/lib/ICAClient/desktop/wfcmgr.desktop",
+      require => [ Package["icaclient"], File["/usr/local/share/applications"] ],
   }
 
   file {
     "/usr/lib/mime/packages/icaclient":
       content => "application/x-ica; /usr/lib/ICAClient/wfica.sh %s; x-mozilla-flags=plugin:Citrix ICA",
-      notify => Exec[update-mime]
-      }
+      notify => Exec[update-mime],
+      require => Package["icaclient"],
+  }
 
   exec {
     "update-mime":
       path => '/usr/sbin',
       refreshonly => true,
+      require => Package["icaclient"],
   }
       
 }

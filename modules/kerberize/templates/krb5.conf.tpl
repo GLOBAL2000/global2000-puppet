@@ -7,6 +7,9 @@
 
 [realms]
 	GLOBAL2000.AT = {
+<% if out_of_house_use -%>
+		kdc = kerberos.global2000.at
+<% end -%>
 		kdc = kerberos1
 		kdc = kerberos2
 		admin_server = kerberos1

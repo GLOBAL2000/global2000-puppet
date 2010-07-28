@@ -8,7 +8,7 @@ class desktop {
   include googleearth
   
   class apps {
-    package { [mplayer, gnome-mplayer, vlc, adobe-flashplugin, thunderbird, adblock-plus, gnomebaker, gwibber, opera, gftp, inkscape, "openoffice.org-base", audacity, nautilus-image-converter]:
+    package { [mplayer, gnome-mplayer, vlc, adobe-flashplugin, thunderbird, adblock-plus, gnomebaker, gwibber, opera, gftp, inkscape, "openoffice.org-base", audacity, nautilus-image-converter, gtk-recordmydesktop]:
       ensure => present,
     }
 

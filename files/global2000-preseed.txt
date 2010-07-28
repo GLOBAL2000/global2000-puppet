@@ -21,3 +21,4 @@ openafs-client					openafs-client/cachesize	string 500000
 openafs-client					openafs-client/fakestat		boolean	true
 openafs-client					openafs-client/cell-info	string afs
 openafs-client					openafs-client/afsdb		boolean true
+b43-fwcutter					b43-fwcutter/cut_firmware	boolean true

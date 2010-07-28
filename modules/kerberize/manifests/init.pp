@@ -1,4 +1,4 @@
-class kerberize {
+class kerberize::krb {
 
   package {
     "libpam-krb5":
@@ -7,7 +7,7 @@ class kerberize {
   
   file {
     "/etc/krb5.conf":
-      source => "puppet:///kerberize/krb5.conf",
+      content => template("kerberize/krb5.conf.tpl"),
   }
   
   package {
@@ -16,6 +16,11 @@ class kerberize {
       responsefile => "/etc/global2000-preseed.txt",
       require => File["/etc/global2000-preseed.txt"],
   }
+ 
+}
+
+class kerberize {
+  include krb
   
   service {
     "ssh":

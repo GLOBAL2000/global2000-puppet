@@ -84,11 +84,6 @@ class global2000 {
   }
 
   file {
-    "/usr/local/share/applications":
-      ensure => directory,
-  }
-  
-  file {
     "/usr/local/share/applications/gleblication.desktop":
       source => "puppet:///global2000/gleblication.desktop",
       require => File["/usr/local/share/applications"],
