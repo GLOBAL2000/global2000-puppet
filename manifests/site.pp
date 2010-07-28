@@ -36,11 +36,7 @@ class general {
 ## Special nodes for testing purposes
 
 node bleedingedge inherits g2zone {
-  include adminscripts
   include general
-}
-
-node /seewinkel45/ inherits bleedingedge {
 }
 
 node 'throwaway' inherits g2zone {  
@@ -51,6 +47,7 @@ node 'throwaway' inherits g2zone {
 node default {}
 
 node /seewinkel.*/ inherits g2zone {
+  include adminscripts
   include general
   include global2000
   include corporate_identity
@@ -64,6 +61,22 @@ node /seewinkel.*/ inherits g2zone {
   include puppet-standalone
   include ntpclient
   case $environment { debootstrap: { include debootstrap } }
+}
+
+node /g2portable.*/ inherits g2zone {
+  $daemonize_puppet_client = false
+  $out_of_house_use = true
+  include general
+  include notebook
+  include kerberize::krb
+  include afsclient
+  include desktop
+  include users::notebook
+}
+
+node 'messenger' inherits g2zone {
+  include puppetclient
+  include mailserver::listcaptor
 }
 
 node 'ldap1', 'ldap2' inherits g2zone {
@@ -117,6 +130,7 @@ node 'cups' inherits g2zone {
   include cups_server
   include clientauth::ldap
   include clientauth::pam
+  $server_admins += "steven@GLOBAL2000.AT"
 }
 
 node 'airbus' inherits g2zone {
