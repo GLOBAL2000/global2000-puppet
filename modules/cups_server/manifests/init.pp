@@ -46,4 +46,12 @@ class cups_server {
     ["avahi-daemon","avahi-utils","libnss-mdns"]:
       ensure => purged,
   }
+
+  cron { reboot-machine:
+    command => "/sbin/reboot",
+    user => root,
+    hour => 23,
+    minute => 30,
+  }
+
 }
