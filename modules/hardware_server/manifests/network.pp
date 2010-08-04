@@ -1,4 +1,4 @@
-class network {
+class hardware_server::network {
 
   class bridge {
     include network

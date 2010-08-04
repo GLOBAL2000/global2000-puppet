@@ -1,9 +1,9 @@
+import "network.pp"
+
 class hardware_server {
-  import "network.pp"
-  
   class airbus {
     $ip = $airbus_ip
-    include network::bridge
+    include hardware_server::network::bridge
     include wake_fuckup
     
     file {
@@ -43,7 +43,7 @@ class hardware_server {
 
   class fuckup {
     $ip = $fuckup_ip
-    include network::simple
+    include hardware_server::network::simple
 
     file {
       "/usr/local/bin/backup.sh":
