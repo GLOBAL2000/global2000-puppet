@@ -34,6 +34,22 @@ define maildirmake( $home , $owner="root", $group="root", $mode="700") {
   }
 }
 
+define bind-zone() {
+  $zone_name = $name
+  file { # Default DNS
+    "/etc/bind/${zone_name}.zone":
+      content => template("dns-dhcp/bind-zone-header.tpl","dns-dhcp/bind-zone.tpl"),
+  }
+}
+
+define bind-zone-reverse() {
+  $zone_name = $name
+  file {
+    "/etc/bind/${zone_name}.reverse":
+      content => template("dns-dhcp/bind-zone-header.tpl","dns-dhcp/bind-zone-reverse.tpl"),
+  }
+}
+
 define autofs_master() { 
 
   file {

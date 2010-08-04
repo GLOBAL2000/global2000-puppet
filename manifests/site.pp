@@ -74,6 +74,11 @@ node /g2portable.*/ inherits g2zone {
   include users::notebook
 }
 
+node 'oasis'  inherits g2zone {
+  include puppetclient
+  include dns-dhcp
+}
+
 node 'messenger' inherits g2zone {
   include puppetclient
   include mailserver::listcaptor
