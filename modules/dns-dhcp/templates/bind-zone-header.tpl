@@ -1,4 +1,4 @@
-<% network_prefix = broadcast.split('.').reject{|a| a=="0"}.join('.') -%>
+<% network_prefix = network.split('.').reject{|a| a=="0"}.join('.') -%>
 $TTL    604800
 @     IN      SOA     <%= fqdn -%>. <%= contactemail.sub('@','.') -%>. (
       <%= Time.new.strftime("%Y%m%d") -%>	; Serial

@@ -9,7 +9,7 @@ ddns-update-style none;
 
 log-facility local7;
 
-subnet <%= broadcast -%> netmask <%= netmask -%> {
+subnet <%= network -%> netmask <%= netmask -%> {
        option domain-name "<%= dns_suffix -%>";
        option domain-name-servers <%= nameserver_ips.join(',') -%>;
        option routers <%= Resolv.getaddress(firewall) -%>;

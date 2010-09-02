@@ -5,7 +5,10 @@ auto br0
 iface br0 inet static
         address <%= ip %>
         netmask <%= netmask %>
-        network <%= broadcast %>
-        broadcast <%= network %>
+        network <%= network %>
+        broadcast <%= broadcast %>
         gateway <%= gateway %>
+        bridge_stp off
+        bridge_fd 0
+        bridge_maxwait 0
         bridge-ports all

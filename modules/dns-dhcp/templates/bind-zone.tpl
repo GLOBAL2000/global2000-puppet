@@ -1,4 +1,4 @@
-<% network_prefix = broadcast.split('.').reject{|a| a=="0"}.join('.') -%>
+<% network_prefix = network.split('.').reject{|a| a=="0"}.join('.') -%>
 <% require 'csv' -%>
 <% CSV.open( csv_path+'/'+zone_name+'.csv' , 'r',';') do |row| -%>
 <% 

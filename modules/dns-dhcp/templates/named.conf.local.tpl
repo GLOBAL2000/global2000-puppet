@@ -1,4 +1,4 @@
-<% network_prefix_reverse = broadcast.split('.').reject{|a| a=="0"}.reverse.join('.') -%>
+<% network_prefix_reverse = network.split('.').reject{|a| a=="0"}.reverse.join('.') -%>
 <% bind_zones.each do |zone| -%>
 zone "<%= zone -%>" {
      type master;
