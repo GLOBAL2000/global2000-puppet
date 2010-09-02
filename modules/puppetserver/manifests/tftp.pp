@@ -7,18 +7,10 @@ class tftp {
       require => File["/etc/global2000-preseed-server.txt"],
   }
 
-  
-  file {
-    "/etc/default/tftpd-hpa":
-      content => "RUN_DAEMON=\"yes\"\nOPTIONS=\"-l -s /var/lib/tftpboot\"\n",
-      before => Package["tftpd-hpa"],
-  }
-
   service {
     "tftpd-hpa":
       enable => true,
       ensure => running,
-      subscribe => File["/etc/default/tftpd-hpa"],
       pattern => "/usr/sbin/in.tftpd",
       require => Package["tftpd-hpa"],
   }

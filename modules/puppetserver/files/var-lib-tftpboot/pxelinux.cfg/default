@@ -2,17 +2,17 @@ default menu.c32
 prompt 0
 timeout 10
 
-label local disk
+label Local disk
       menu local boot
       menu default
       localboot 0x80
 
-label install karmic
+label Install Karmic
 	menu label Install Karmic
 	kernel karmic-installer/i386/linux
 	append nousb vga=normal initrd=karmic-installer/i386/initrd.gz auto=true priority=critical url=http://puppet/preseed-karmic.txt -- quiet
 
-label install Lucid
+label Install Lucid
 	menu label Install Lucid
 	kernel lucid-installer/i386/linux
 	append nousb vga=normal initrd=lucid-installer/i386/initrd.gz auto=true priority=critical url=http://puppet/preseed-lucid.txt -- quiet
@@ -22,7 +22,12 @@ label Notebook Install Lucid
 	kernel lucid-installer/i386/linux
 	append nousb vga=normal initrd=lucid-installer/i386/initrd.gz auto=true priority=critical url=http://puppet/preseed-notebook-lucid.txt -- quiet
 
-label install lenny
+label Install Lenny
 	menu label Install Lenny
 	kernel squeeze-installer/amd64/linux
 	append vga=normal initrd=squeeze-installer/amd64/initrd.gz auto=true url=http://puppet/preseed-lenny.txt suite=lenny -- quiet
+
+label Install Squeeze
+	menu label Install Squeeze
+	kernel squeeze-installer/amd64/linux
+	append vga=normal initrd=squeeze-installer/amd64/initrd.gz auto=true url=http://puppet/preseed-squeeze.txt -- quiet

@@ -13,6 +13,10 @@ slapd   	slapd/no_configuration  	boolean true
 mysql-server-5.0				mysql-server/root_password	password
 mysql-server-5.0				mysql-server/root_password_again	password
 tftpd-hpa					tftpd-hpa/use_inetd		boolean false
+tftpd-hpa					tftpd-hpa/options		string --secure
+tftpd-hpa					tftpd-hpa/address		string 0.0.0.0:69
+tftpd-hpa					tftpd-hpa/directory		string /var/lib/tftpboot
+tftpd-hpa					tftpd-hpa/username		string tftp
 # NFS, do not overwrite /etc/exports 
 ucf    ucf/changeprompt	select keep_current
 openafs-fileserver	openafs-fileserver/alpha-broken	note	

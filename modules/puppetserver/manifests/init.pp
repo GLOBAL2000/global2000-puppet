@@ -23,6 +23,12 @@ class puppetserver {
   }
 
   file {
+    "/etc/default/thttpd":
+      content => "ENABLED=yes",
+      notify => Service["thttpd"],
+  }
+
+  file {
     "/var/www":
       source => "puppet:///puppetserver/var-www",
       recurse => true,
@@ -51,17 +57,12 @@ class puppetserver {
   }
 
   file {
-    "/var/lib/puppet":
+    "/var/lib/puppet/ssl":
       owner => puppet, group => puppet,
-      source => "puppet:///puppetserver/var-lib-puppet",
+      source => "puppet:///puppetserver/var-lib-puppet-ssl",
       recurse => true,
       ensure => present,
       before => Package["puppetmaster"];
-
-    "/var/lib/puppet/ssl/private_keys/puppet.g2.pem":
-      owner => root, group => root,
-      mode => 600,
-      require => File["/var/lib/puppet"];
   }
 
   cron { clear-certs:
