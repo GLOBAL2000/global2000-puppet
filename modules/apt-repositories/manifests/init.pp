@@ -58,13 +58,13 @@ class apt-repositories {
 
     }
     
-    Debian: {
+    "Debian": {
       file {
         "/etc/apt/sources.list.d/openprinting-sources.list":
           content => "deb http://www.openprinting.org/download/printdriver/debian/ lsb3.2 main";
         
         "/etc/apt/sources.list.d/foswiki.list":
-          content => "deb http://fosiki.com/Foswiki_debian/ stable main contrib\ndeb-src http://fosiki.com/Foswiki_debian/ stable main contrib",
+          content => "deb http://fosiki.com/Foswiki_debian/ stable main contrib \ndeb-src http://fosiki.com/Foswiki_debian/ stable main contrib";
       }
 
       case $operatingsystemrelease {

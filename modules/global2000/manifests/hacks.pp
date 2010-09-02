@@ -14,10 +14,6 @@ class hacks::karmic {
       onlyif => "grep --quiet 'search --no-floppy' /boot/grub/grub.cfg",
   }
       
-  file { "/etc/default/console-setup":
-    tag => debootstrap,
-    source => "puppet:///global2000/etc-default-console-setup",
-  }
 
 }
 

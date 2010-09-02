@@ -3,11 +3,25 @@ class dns-dhcp {
   include dhcp
   
   class dns {
-    bind-zone {
+    package {
+      "bind9":
+        ensure => installed,
+    }
+
+    service {
+      "bind9":
+        ensure => running,
+        enable => true,
+        hasrestart => true,
+        hasstatus => true,
+        require => Package["bind9"],
+    }
+    
+    bind_zone {
       $bind_zones:
     }
 
-    bind-zone-reverse {
+    bind_zone_reverse {
       $bind_zones_reverse:
     }
 
@@ -20,6 +34,20 @@ class dns-dhcp {
   class dhcp {
     $dhcp_path = "/etc/dhcp3"
 
+    package {
+      "dhcp3-server":
+        ensure => installed,
+    }
+
+    service {
+      "dhcp3-server":
+        ensure => running,
+        enable => true,
+        hasrestart => true,
+        hasstatus => true,
+        require => Package["dhcp3-server"],
+    }
+    
     file {
       "${dhcp_path}/dhcpd.conf":
         content => template("dns-dhcp/dhcpd.conf.tpl"),

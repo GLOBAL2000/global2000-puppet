@@ -1,7 +1,9 @@
 import "hacks.pp"
+import "keyboard"
 
 class global2000 {
   include "hacks::${lsbdistcodename}"
+  include 'keyboard'
 
   file {
     "/etc/cups/client.conf":
@@ -29,15 +31,18 @@ class global2000 {
       ensure => present,
   }
 
+  exec {
+    "firefox 3.5 vs 3.6 hack":
+      command => "ln -s /etc/firefox-3.5 /etc/firefox",
+      unless => "test -d /etc/firefox",
+  }
+
   file {
-    "firefox profile":
-      path => $operatingsystemrelease ? {
-        "9.10" => "/etc/firefox-3.5/profile",
-        "10.04" => "/etc/firefox/profile",
-      },
+    "/etc/firefox/profile":
       source => "puppet:///global2000/firefox35-profile",
       recurse => true,
       purge => true,
+      require => Exec["firefox 3.5 vs 3.6 hack"]
   }
 
   file {

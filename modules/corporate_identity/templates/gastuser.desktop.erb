@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Gastuser Trayicon
+Comment=Starts guestuser tray icon
+Exec=sh -c "while $(<%= gdm_guest_user_try_icon_command %>);do /usr/share/gdm/guest-session/guest-session-launch;done"
+Terminal=false
+Type=Application

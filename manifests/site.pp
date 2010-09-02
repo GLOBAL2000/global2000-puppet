@@ -46,6 +46,11 @@ node 'throwaway' inherits g2zone {
 ##Nodes
 node default {}
 
+node /donauauen.*/ inherits g2zone {
+  include desktop::firefox
+  include desktop::openoffice
+}
+
 node /seewinkel.*/ inherits g2zone {
   include adminscripts
   include general
@@ -59,7 +64,7 @@ node /seewinkel.*/ inherits g2zone {
   include clientauth::ldap
   include afsclient
   include puppet-standalone
-  include ntpclient
+  include ntp::client
   case $environment { debootstrap: { include debootstrap } }
 }
 
@@ -75,8 +80,12 @@ node /g2portable.*/ inherits g2zone {
 }
 
 node 'oasis'  inherits g2zone {
-  include puppetclient
+  $allow_ssh_password_login = true
+  $server_admins += "steven@GLOBAL2000.AT"
+  include kerberize
   include dns-dhcp
+  include general
+  include ntp::server
 }
 
 node 'messenger' inherits g2zone {
@@ -145,7 +154,7 @@ node 'airbus' inherits g2zone {
   include fileserver
   include hardware_server::airbus
   include acl
-  include ntpclient
+  include ntp::client
 }
 
 node 'puppet' inherits g2zone {
@@ -164,6 +173,7 @@ node 'nagual' inherits g2zone {
 }
 
 node 'fuckup' inherits g2zone {
+  $allow_ssh_password_login = true
   $daemonize_puppet_client = false
   include hardware_server::fuckup
   include kerberize
@@ -171,9 +181,10 @@ node 'fuckup' inherits g2zone {
   include ssmtp
   include afsclient
   include smart
+  include ntp::client
 }
 
-node 'aptproxy' inherits g2zone {
+node 'aptproxy','aptcache' inherits g2zone {
   include general
   include kerberize
   include apt-cacher-ng
