@@ -1,0 +1,3 @@
+[submodule "modules/adminscripts/files/g2ldap"]
+	path = modules/adminscripts/files/g2ldap
+	url = git://github.com/joerg/g2ldap.git
