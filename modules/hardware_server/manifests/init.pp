@@ -101,7 +101,7 @@ class hardware_server {
       device => "UUID=c3296d28-323f-461b-8c4d-da73b8f5ea89",
       fstype => ext3,
       ensure => mounted,
-      options => "auto",
+      options => "defaults",
       require => File["/mnt/modo"],
     }
 
@@ -109,7 +109,7 @@ class hardware_server {
       device => "UUID=536eedad-81f0-4aef-983c-1c5bc8514771",
       fstype => ext3,
       ensure => mounted,
-      options => "auto",
+      options => "defaults",
       require => File["/mnt/difr"],
     }
     
@@ -117,7 +117,7 @@ class hardware_server {
       device => "UUID=964ff816-dc8c-4ca5-b551-b82337135ec5",
       fstype => ext3,
       ensure => mounted,
-      options => "auto",
+      options => "defaults",
       require => File["/mnt/misa"],
     }
 
@@ -125,7 +125,7 @@ class hardware_server {
       device => "UUID=f3cc2ea6-f95d-48cc-b7a3-622ba04b0119",
       fstype => ext3,
       ensure => mounted,
-      options => "auto",
+      options => "defaults",
       require => File["/mnt/so1"],
     }
 
@@ -133,7 +133,7 @@ class hardware_server {
       device => "UUID=2cf9f70d-9f99-4265-bf62-ac7e5092cfd6",
       fstype => ext3,
       ensure => mounted,
-      options => "auto",
+      options => "defaults",
       require => File["/mnt/so2"],
     }
 
@@ -141,7 +141,7 @@ class hardware_server {
       device => "UUID=5eee1578-60e1-4589-bddd-cd0bcc5935c7",
       fstype => ext3,
       ensure => mounted,
-      options => "auto",
+      options => "defaults",
       require => File["/mnt/friedhof"],
     }
 
