@@ -32,7 +32,7 @@ class kerberize {
 
   file {
     "/etc/ssh/sshd_config":
-      source => "puppet:///kerberize/sshd_config",
+      content => template("kerberize/sshd_config.tpl"),
       require => [ File["/etc/krb5.keytab"], Package["krb5-user"] ]
   }
   

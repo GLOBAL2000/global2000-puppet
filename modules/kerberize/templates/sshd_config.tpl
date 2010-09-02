@@ -1,12 +1,16 @@
 Port 22
 Protocol 2
 
-# Nix erlauben, außer GSSAPI
 RSAAuthentication no
 PubkeyAuthentication no
 ChallengeResponseAuthentication no
+<% if allow_ssh_password_login -%>
+PasswordAuthentication yes
+UsePAM yes
+<% else -%>
 PasswordAuthentication no
 UsePAM no
+<% end -%>
 
 X11Forwarding yes
 PrintMotd no
