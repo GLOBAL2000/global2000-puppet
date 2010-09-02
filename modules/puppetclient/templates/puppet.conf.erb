@@ -7,15 +7,13 @@ factpath=$vardir/lib/facter
 pluginsync = true
 server = puppet.g2
 puppetdlockfile = /var/run/puppetdlock
-<% if hostname == "puppet" %>
 
 [debootstrap]
 manifest   = /etc/puppet/manifests/site.pp
 modulepath = /etc/puppet/modules
 
-[puppetmasterd]
+[master]
 templatedir = /var/lib/puppet/templates
 autosign = true
 #No spaces in list!!
 environments = production,debootstrap
-<% end %>

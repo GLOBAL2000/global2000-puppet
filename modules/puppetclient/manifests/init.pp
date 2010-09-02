@@ -1,4 +1,5 @@
 class puppetclient {
+  tag("debootstrap")
 
   package {
     "lsb-release":
@@ -16,12 +17,12 @@ class puppetclient {
         true => "running",
         false => "stopped",
       },
-      enable => $daemonize_puppet_client ? {
-        true => "true",
-        false => "false",
-      },
+      enable => $daemonize_puppet_client,
       hasrestart => true,
-      status => "start-stop-daemon -t -p /var/run/puppet/puppetd.pid --stop",
+      status => $lsbdistcodename ? {
+        'squeeze' => "invoke-rc.d puppet status",
+        default => "start-stop-daemon -t -p /var/run/puppet/puppetd.pid --stop",
+      },
       require => Package[puppet],
   }
   
@@ -37,7 +38,11 @@ class puppetclient {
 
   file {
     "/etc/default/puppet":
-      content => template("puppetclient/etc-default-puppet.erb"),
+      tag => "debootstrap",
+      content => inline_template('#puppet managed
+START=<%= daemonize_puppet_client ? "yes" : "no"%>
+DAEMON_OPTS=""
+'),
       require => Package[puppet],
   }
 
