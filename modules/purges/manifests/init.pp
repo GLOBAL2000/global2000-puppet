@@ -50,7 +50,7 @@ class purges {
     ensure => absent,
   }
 
-  gconf-system {
+  gconf {
     "/desktop/gnome/sound/event_sounds":
       type => bool,
       ensure => false,

@@ -22,7 +22,7 @@ class notebook {
       provider => 'dpkg';
   }
 
-  gconf-system {
+  gconf {
     "/apps/krb5-auth-dialog/plugins/enabled":
       preference => "mandatory",
       ensure => "[afs]",
