@@ -1,4 +1,4 @@
-define gconf-system($type="string", $list_type="string", $preference="defaults", $prefix="xml:readwrite:", $location="/etc/gconf/gconf.xml.", $ensure="present") {
+define gconf($type="string", $list_type="string", $preference="defaults", $prefix="xml:readwrite:", $location="/etc/gconf/gconf.xml.", $ensure="present") {
   case $ensure {
     absent: {
       exec{
@@ -23,7 +23,7 @@ define gconf-system($type="string", $list_type="string", $preference="defaults",
 
 define get_by_rsync( $destination="/var/tmp/") {
   exec { "rsync_$name":
-    command => "rsync -qrL puppet::rsync/$name $destination",
+    command => "rsync -qrL ${rsyncserver}::rsync/${name} ${destination}",
   }
 }
 
@@ -34,7 +34,7 @@ define maildirmake( $home , $owner="root", $group="root", $mode="700") {
   }
 }
 
-define bind-zone() {
+define bind_zone() {
   $zone_name = $name
   file { # Default DNS
     "/etc/bind/${zone_name}.zone":
@@ -42,7 +42,7 @@ define bind-zone() {
   }
 }
 
-define bind-zone-reverse() {
+define bind_zone_reverse() {
   $zone_name = $name
   file {
     "/etc/bind/${zone_name}.reverse":
@@ -86,7 +86,7 @@ define autofs_master() {
 
 }
 
-define autofs_mount( dynamic=false ) { 
+define autofs_mount( $dynamic=false ) { 
 
   file { "/etc/auto.$name":
     ensure => file,
